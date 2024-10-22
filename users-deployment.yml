@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: users
-        image: your_dockerhub_username/users-service
+        image: veda12/users-service
         ports:
         - containerPort: 5001
