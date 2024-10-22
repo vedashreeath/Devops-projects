@@ -1,0 +1,9 @@
+FROM python:3.8-slim
+
+WORKDIR /app
+
+COPY products.py .
+
+RUN pip install flask
+
+CMD ["python", "products.py"]
