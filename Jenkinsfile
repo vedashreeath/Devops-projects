@@ -2,8 +2,8 @@ pipeline {
     agent any
     environment {
         DOCKERHUB_CREDENTIALS = credentials('Barbie$44')  // Jenkins credentials for Docker Hub
-        AWS_ACCESS_KEY_ID = credentials('AKIAQWHCQFU5KQB7X7C2')  // Replace with your actual credential ID
-        AWS_SECRET_ACCESS_KEY = credentials('ngN19aicCZVNqBeDZOndJZZUIv58OlRKQTV6u/QV')  // Replace with your actual credential ID
+        AWS_ACCESS_KEY_ID = credentials('')  // Replace with your actual credential ID
+        AWS_SECRET_ACCESS_KEY = credentials('')  // Replace with your actual credential ID
     }
     stages {
         stage('Checkout') {
