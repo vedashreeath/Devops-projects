@@ -1,0 +1,68 @@
+version: "3.8"
+
+services:
+  users-service:
+    build:
+      context: ./users  # Folder containing users.py and Dockerfile
+      dockerfile: Dockerfile
+    image: veda12/users-service:latest
+    ports:
+      - "8081:8081"
+    networks:
+      - ecommerce-network
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=users_db
+      - DB_USER=user
+      - DB_PASSWORD=password
+
+  products-service:
+    build:
+      context: ./products  # Folder containing products.py and Dockerfile
+      dockerfile: Dockerfile
+    image: veda12/products-service:latest
+    ports:
+      - "8082:8082"
+    networks:
+      - ecommerce-network
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=products_db
+      - DB_USER=user
+      - DB_PASSWORD=password
+
+  orders-service:
+    build:
+      context: ./orders  # Folder containing orders.py and Dockerfile
+      dockerfile: Dockerfile
+    image: veda12/orders-service:latest
+    ports:
+      - "8083:8083"
+    networks:
+      - ecommerce-network
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=orders_db
+      - DB_USER=user
+      - DB_PASSWORD=password
+
+  db:
+    image: postgres:13
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ecommerce
+    networks:
+      - ecommerce-network
+
+networks:
+  ecommerce-network:
+    driver: bridge
+
+volumes:
+  db-data:
