@@ -54,7 +54,7 @@ pipeline {
                     sh 'terraform init'
 
                     // Apply Terraform configuration to create EKS cluster
-                    sh 'terraform apply -auto-approve'
+                    sh 'TF_LOG=DEBUG terraform apply -auto-approve'
                 }
             }
         }
