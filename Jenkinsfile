@@ -47,14 +47,18 @@ pipeline {
                 }
             }
         }
-        stage('Create EKS Cluster') {
+        stage('Terraform Apply') {
             steps {
                 script {
-                    // Initialize Terraform
-                    sh 'terraform init'
-
-                    // Apply Terraform configuration to create EKS cluster
-                    sh 'TF_LOG=DEBUG terraform apply -auto-approve'
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS-creds']]) {
+                        // AWS credentials are automatically injected into environment variables
+                        sh '''
+                            export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+                            export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+                            terraform init
+                            TF_LOG=DEBUG terraform apply -auto-approve
+                        '''
+                    }
                 }
             }
         }
