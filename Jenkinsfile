@@ -1,9 +1,10 @@
 pipeline {
     agent any
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('Dockerhub-creds')  // Jenkins credentials for Docker Hub
-        AWS_CREDENTIALS = credentials('AWS-creds')
-    }
+    DOCKERHUB_CREDENTIALS = credentials('Dockerhub-creds')  // Docker Hub credentials
+    AWS_ACCESS_KEY_ID = credentials('AWS-creds').accessKeyId
+    AWS_SECRET_ACCESS_KEY = credentials('AWS-creds').secretAccessKey
+}
     stages {
         stage('Checkout') {
             steps {
@@ -15,16 +16,23 @@ pipeline {
             }
         }
       stage('Configure AWS CLI') {
-            steps {
-                script {
-                    // Configure AWS CLI with the credentials
-                    sh '''
-                    export AWS_ACCESS_KEY_ID=${AWS_CREDENTIALS_USR}
-                    export AWS_SECRET_ACCESS_KEY=${AWS_CREDENTIALS_PSW}
-                    '''
-                }
-            }
+    steps {
+        script {
+            // AWS CLI configuration can be done here if needed
+            sh '''
+            aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID}
+            aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}
+            '''
         }
+    }
+}
+        stage('Login to Docker Hub') {
+    steps {
+        script {
+            sh 'docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}'
+        }
+    }
+}
         stage('Build Docker Images') {
             steps {
                 script {
