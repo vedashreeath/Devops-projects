@@ -11,7 +11,6 @@ pipeline {
                     url: 'https://github.com/vedashreeath/Devops-projects.git',
                     branch: 'master'
                     )
-            }
   // Your GitHub repo URL
             }
         }
