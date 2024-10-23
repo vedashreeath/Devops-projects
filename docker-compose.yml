@@ -3,8 +3,8 @@ version: "3.8"
 services:
   users-service:
     build:
-      context: ./users  # Folder containing users.py and Dockerfile
-      dockerfile: Dockerfile
+      context: .  # Folder containing users.py and Dockerfile
+      dockerfile: Dockerfile.users
     image: veda12/users-service:latest
     ports:
       - "8081:8081"
@@ -19,8 +19,8 @@ services:
 
   products-service:
     build:
-      context: ./products  # Folder containing products.py and Dockerfile
-      dockerfile: Dockerfile
+      context: .  # Folder containing products.py and Dockerfile
+      dockerfile: Dockerfile.products
     image: veda12/products-service:latest
     ports:
       - "8082:8082"
@@ -35,8 +35,8 @@ services:
 
   orders-service:
     build:
-      context: ./orders  # Folder containing orders.py and Dockerfile
-      dockerfile: Dockerfile
+      context: .  # Folder containing orders.py and Dockerfile
+      dockerfile: Dockerfile.orders
     image: veda12/orders-service:latest
     ports:
       - "8083:8083"
