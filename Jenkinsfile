@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/vedashreeath/Devops-projects.git'  // Your GitHub repo URL
+                git 'https://github.com/vedashreeath/Devops-projects.git', branch: 'master'  // Your GitHub repo URL
             }
         }
       stage('Configure AWS CLI') {
@@ -15,9 +15,8 @@ pipeline {
                 script {
                     // Configure AWS CLI with the credentials
                     sh '''
-                    aws configure set aws_access_key_id $AWS_CREDENTIALS_USR
-                    aws configure set aws_secret_access_key $AWS_CREDENTIALS_PSW
-                    aws configure set default.region your-region  # Replace with your AWS region
+                    export AWS_ACCESS_KEY_ID=${AWS_CREDENTIALS_USR}
+                    export AWS_SECRET_ACCESS_KEY=${AWS_CREDENTIALS_PSW}
                     '''
                 }
             }
