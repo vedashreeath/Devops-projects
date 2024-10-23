@@ -47,6 +47,17 @@ pipeline {
                 }
             }
         }
+        stage('Create EKS Cluster') {
+            steps {
+                script {
+                    // Initialize Terraform
+                    sh 'terraform init'
+
+                    // Apply Terraform configuration to create EKS cluster
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
         stage('Deploy to EKS') {
             steps {
                 script {
