@@ -7,7 +7,12 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/vedashreeath/Devops-projects.git', branch: 'master'  // Your GitHub repo URL
+                git(
+                    url: 'https://github.com/vedashreeath/Devops-projects.git',
+                    branch: 'master'
+                    )
+            }
+  // Your GitHub repo URL
             }
         }
       stage('Configure AWS CLI') {
