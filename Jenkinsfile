@@ -20,9 +20,9 @@ pipeline {
                 dir('Project-1') {  // Change directory to Project-1 for all build steps
                     script {
                         def imageName = "veda12/webimage:latest"
-                        sh 'docker build -t ${imageName} .' // Build Docker image in Project-1
-                        sh 'docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}'
-                        sh 'docker push ${imageName}'
+                        sh "docker build -t ${imageName} ."Build Docker image in Project-1
+                        sh "docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}"
+                        sh "docker push ${imageName}"
                     }
                 }
             }
