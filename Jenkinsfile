@@ -22,7 +22,7 @@ pipeline {
                         def imageName = "veda12/webimage:latest"
                         sh "docker build -t ${imageName} ."
                         sh "docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}"
-                        sh "docker push ${imageName}"
+                        sh "docker push ${imageName} -f Dockerfile ."
                     }
                 }
             }
