@@ -8,9 +8,11 @@ pipeline {
     stages {
         stage('checkout') {
             steps {
-                git (
-                    url: 'https://github.com/vedashreeath/Devops-projects',
-                    branch: 'master'
+                dir('Project-1') {
+                    git(
+                        url: 'https://github.com/vedashreeath/Devops-projects',
+                        branch: 'master'
+                    }
                 )
             }
         }
