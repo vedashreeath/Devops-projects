@@ -6,23 +6,26 @@ pipeline {
         DOCKERHUB_CREDENTIALS = credentials('Dockerhub-creds')
     }
     stages {
-        stage('Checkout') {
+        stage('checkout') {
             steps {
-                // Checkout the entire repository (the Jenkinsfile must remain at the root)
-                git(
+                git (
                     url: 'https://github.com/vedashreeath/Devops-projects',
                     branch: 'master'
                 )
             }
         }
-        stage('Build and Push Docker Image') {
+        stage('login') {
             steps {
-                dir('Project-1') {  // Change directory to Project-1 for all build steps
+                sh 'docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}'
+            }
+        }
+        stage('build') {
+            steps {
+                dir('Project-1') {
                     script {
                         def imageName = "veda12/webimage:latest"
-                        sh "docker build -t ${imageName} ."
-                        sh "docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}"
-                        sh "docker push ${imageName} -f Dockerfile ."
+                        sh 'docker build -t ${imageName} .'
+                        sh 'docker push ${imageName}'
                     }
                 }
             }
