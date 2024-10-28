@@ -24,8 +24,8 @@ pipeline {
                 dir('Project-1') {
                     script {
                         def imageName = "veda12/webimage:latest"
-                        sh 'docker build -t ${imageName} .'
-                        sh 'docker push ${imageName}'
+                        sh "DOCKER_BUILDKIT=0 docker build -t ${imageName} ."
+                        sh "docker push ${imageName}"
                     }
                 }
             }
