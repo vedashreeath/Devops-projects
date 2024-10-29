@@ -5,7 +5,7 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('AWS-creds')
         DOCKERHUB_CREDENTIALS = credentials('Dockerhub-creds')
         REGION = 'us-east-1'
-        EKS_CLUSTER_NAME = 'sample-cluster'
+        EKS_CLUSTER_NAME = 'my-eks-cluster'
     }
     stages {
         stage('checkout') {
