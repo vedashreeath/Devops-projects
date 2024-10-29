@@ -3,19 +3,19 @@ kind: Deployment
 metadata:
   name: nginx-app
   labels:
-  app: nginx
+    app: nginx
 spec:
   replicas: 2
   selector:
     matchLabels:
       app: nginx
   template:
-    labels:
-      app: nginx
+    metadata:                     # This line is required
+      labels:
+        app: nginx
     spec:
       containers:
       - name: nginx
         image: veda12/nginx:latest
         ports:
-        -  containerPort: 80
-      
+        - containerPort: 80
