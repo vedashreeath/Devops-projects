@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-app
+  labels:
+  app: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    labels:
+      app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: veda12/nginx:latest
+        ports:
+        -  containerPort: 80
+      
