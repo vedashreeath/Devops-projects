@@ -4,6 +4,8 @@ pipeline {
         AWS_ACCESS_KEY_ID = credentials('AWS-creds')
         AWS_SECRET_ACCESS_KEY = credentials('AWS-creds')
         DOCKERHUB_CREDENTIALS = credentials('Dockerhub-creds')
+        REGION = 'us-east-1'
+        EKS_CLUSTER_NAME = 'sample-cluster'
     }
     stages {
         stage('checkout') {
@@ -28,6 +30,24 @@ pipeline {
                         sh "docker push ${imageName}"
                     }
                 }
+            }
+        }
+        stage('configure kubectl for eks') {
+            steps {
+                sh "aws eks --region ${REGION} update-kubeconfig --name ${EKS_CLUSTER_NAME}"
+            }
+        }
+        stage('Deploy to EKS') {
+            steps {
+                script {
+                    sh "kubectl apply -f nginx-deployment.yaml"
+                }
+            }
+        }
+        stage('verify') {
+            steps {
+                sh "kubectl get deployments"
+                sh "kubectl get svc"
             }
         }
     }
