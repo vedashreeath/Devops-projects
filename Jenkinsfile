@@ -32,6 +32,15 @@ pipeline {
                 }
             }
         }
+        stage('Terraform run') {
+            steps {
+                script {
+                    sh 'terraform init'
+                    sh 'terraform plan'
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
         stage('configure kubectl for eks') {
             steps {
                 sh "aws eks --region ${REGION} update-kubeconfig --name ${EKS_CLUSTER_NAME}"
