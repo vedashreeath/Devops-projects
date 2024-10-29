@@ -41,7 +41,8 @@ pipeline {
             steps {
                 dir('Project-1') {
                     script {
-                        sh "kubectl apply -f nginx-deployment.yaml"
+                        sh "kubectl apply -f nginx-deployment.yml"
+                        sh "kubectl apply -f service.yml"
                     }
                 } 
             }
