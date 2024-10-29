@@ -39,9 +39,11 @@ pipeline {
         }
         stage('Deploy to EKS') {
             steps {
-                script {
-                    sh "kubectl apply -f nginx-deployment.yaml"
-                }
+                dir('Project-1') {
+                    script {
+                        sh "kubectl apply -f nginx-deployment.yaml"
+                    }
+                } 
             }
         }
         stage('verify') {
